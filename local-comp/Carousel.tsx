@@ -20,7 +20,7 @@ type Item = {
 
 export default function CarouselComp({ list }: { list: Item[] }) {
   const plugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true })
+    Autoplay({ delay: 3000, stopOnInteraction: false})
   )
 
   return (
