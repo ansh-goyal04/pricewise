@@ -13,3 +13,51 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model Product {
+  id              String         @id @default(cuid()) // Unique identifier for the product
+  url             String         @unique // The unique URL of the product page
+  currency        String
+  image           String
+  title           String
+  currentPrice    Decimal // The current selling price
+  originalPrice   Decimal // The original price (MSRP)
+  lowestPrice     Decimal? // Optional: The lowest price recorded for this product
+  highestPrice    Decimal? // Optional: The highest price recorded for this product
+  averagePrice    Decimal? // Optional: The calculated average price
+  discountRate    Decimal? // Optional: The current discount percentage
+  description     String?
+  isOutOfStock    Boolean        @default(false)
+  
+  priceHistory    PriceHistory[]
+  
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+
+model PriceHistory {
+  id        String   @id @default(cuid())
+  price     Decimal
+  date      DateTime @default(now())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId]) // Adds a database index on productId for faster queries.
+}
+
+
+
+// model User {  
+//   id              String    @id @default(cuid())
+//   email           String    @unique // Each user is identified by a unique email
+
+//   // --- Relationships ---
+//   // A list of products that this user is tracking.
+//   trackingProducts Product[]
+
+//   // --- Timestamps ---
+//   createdAt       DateTime  @default(now())
+//   updatedAt       DateTime  @updatedAt
+// }

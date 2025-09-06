@@ -1,7 +1,7 @@
 "use server"
 
 import * as cheerio from 'cheerio';
-import { extractCurrency, extractPrice } from '../utils';
+import { extractCurrency, extractDescription, extractPrice } from '../utils';
 
 export async function scrapeProduct(url: string) {
   if (!url) return null
@@ -47,7 +47,7 @@ export async function scrapeProduct(url: string) {
 
     const currencyText=extractCurrency($('.a-price-symbol'))
     const discountRate=$('.savingsPercentage').text().replace(/[-%]/g,"")
-
+   const description = extractDescription($)
     const Productdata={
         url,
         currency:currencyText || '₹',
@@ -57,9 +57,14 @@ export async function scrapeProduct(url: string) {
         origPrice:Number(origPrice),
         priceHistory:[],
         discountRate:Number(discountRate),
-        isOutOfStock:outOfStock
+        isOutOfStock:outOfStock,
+        // description,
+        lowestPrice:Number(currPrice),
+        highestPrice:Number(currPrice),
+        avgPrice:Number(currPrice),
     }
 
+    console.log(Productdata);
     return Productdata;
     
   } catch (error: any) {
