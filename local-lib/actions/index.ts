@@ -84,3 +84,35 @@ else{
   }
 }
 
+export async function getProductById(productId:string){
+  try{
+    const product =await prisma.product.findUnique({
+      where:{id:productId},
+      include:{
+        priceHistory:true,
+    }})
+
+    if(!product) return null;
+    return product;
+  }
+  catch(err:any){
+    throw new Error(`Failed to retrieve the product: ${err.message}`)
+  }
+}
+
+export async function getAllProducts(){
+  try{
+    const products = await prisma.product.findMany({
+      include:{
+        priceHistory:true,
+      }
+    })
+
+    if(!products) return null;
+    return products;
+  }
+  catch(err:any){
+    throw new Error(`Failed to retrieve products: ${err.message}`)
+  }
+}
+

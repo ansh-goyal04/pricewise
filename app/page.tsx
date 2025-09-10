@@ -1,5 +1,6 @@
 import CarouselComp from "@/local-comp/Carousel";
 import SearchBox from "@/local-comp/SearchBox";
+import Trending from "@/local-comp/Trending";
 import Image from "next/image";
 
 const heroImg = [
@@ -49,7 +50,7 @@ export default function Home() {
       </section>
 
       <section className="px-6 md:px-20 py-12">
-        <h2 className="text-2xl font-semibold">Trending</h2>
+        <Trending/>
       </section>
     </div>
   );
