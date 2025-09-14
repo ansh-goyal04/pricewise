@@ -17,7 +17,7 @@ export async function scrapeProduct(url: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        zone: "pricewise",
+        zone: "web_unlocker1",
         url,
         format: "json",
       }),
