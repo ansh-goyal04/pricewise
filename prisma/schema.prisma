@@ -29,8 +29,11 @@ model Product {
   discountRate    Int? // Optional: The current discount percentage
   description     String?
   isOutOfStock    Boolean        @default(false)
+  productRating   Int?
+  reviewCount     Int?
   
   priceHistory    PriceHistory[]
+  Users           User[]
   
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
@@ -47,17 +50,12 @@ model PriceHistory {
   @@index([productId]) // Adds a database index on productId for faster queries.
 }
 
+ model User {  
+   id              String    @id @default(cuid())
+  email           String    @unique // Each user is identified by a unique email
 
+  trackingProducts Product[]
 
-// model User {  
-//   id              String    @id @default(cuid())
-//   email           String    @unique // Each user is identified by a unique email
-
-//   // --- Relationships ---
-//   // A list of products that this user is tracking.
-//   trackingProducts Product[]
-
-//   // --- Timestamps ---
-//   createdAt       DateTime  @default(now())
-//   updatedAt       DateTime  @updatedAt
-// }
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+ }

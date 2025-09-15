@@ -101,3 +101,33 @@ export const getAllProducts = cache(async () => {
     throw new Error(`Failed to retrieve products: ${err.message}`);
   }
 });
+
+export async function addUserEmailToProdct(productId:string,email:string){
+  try {
+    const existingProduct=await prisma.product.findUnique({
+      where:{id:productId}
+    })
+    if(!existingProduct){
+      throw new Error("Product not found")
+    }
+    const existingUser=await prisma.user.findUnique({
+      where:{email}
+    })
+    if(!existingUser){
+      await prisma.user.create({
+        data:{email}
+      })
+    }
+    await prisma.user.update({
+      where:{email},
+      data:{
+        trackingProducts:{
+          connect:{id:productId}
+        }
+      }
+    })
+  } catch (error) {
+    
+  }
+
+}

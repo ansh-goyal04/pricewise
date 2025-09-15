@@ -10,6 +10,7 @@ import { Card as AppleCard } from "@/components/ui/apple-cards-carousel"
 import { useEffect, useState } from "react"
 import { useParams } from 'next/navigation';
 import { getProductById } from "@/local-lib/actions";
+import Modal from "@/local-comp/Modal";
 
 interface ProductCard {
   id: string;
@@ -20,7 +21,6 @@ interface ProductCard {
   currentPrice: number;
   originalPrice: number;
   discountRate: number | null;
-  discountPercentage?: number | null;
   description?: string | null;
   rating?: number | null;
   reviewCount?: number | null;
@@ -147,7 +147,7 @@ export default function ProductDisplay() {
               <div className="flex items-center gap-2">
                 <span className="text-3xl font-bold text-primary">${product.currentPrice}</span>
                 <Badge variant="destructive" className="text-sm font-semibold">
-                  -{product.discountPercentage}%
+                  -{product.discountRate}%
                 </Badge>
               </div>
             </div>
@@ -197,16 +197,15 @@ export default function ProductDisplay() {
           <Separator />
 
           {/* Action Buttons */}
-          <div className="space-y-4">
-            {/* <div className="flex flex-col sm:flex-row gap-3">
-              <Button size="lg" className="flex-1 text-lg font-semibold">
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Add to Cart
-              </Button>
-              <Button size="lg" variant="outline" className="flex-1 bg-transparent">
+          {/* <div className="space-y-4"> */}
+              <div className="flex flex-col sm:flex-row gap-3 mb-10">
+              {/* <Button size="lg" className="flex-1 text-lg font-semibold"> */}
+                <Modal/>
+              {/* </Button>  */}
+              {/* <Button size="lg" variant="outline" className="flex-1 bg-transparent">
                 Buy Now
               </Button>
-            </div> */}
+            </div> */} 
 
             <Button variant="link" className="w-full text-primary hover:underline" asChild>
               <a href={product.url} target="_blank" rel="noopener noreferrer">
