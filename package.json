@@ -15,6 +15,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@react-email/render": "^1.3.1",
     "@tabler/icons-react": "^3.34.1",
     "cheerio": "^1.1.2",
     "class-variance-authority": "^0.7.1",
@@ -30,11 +31,13 @@
     "prisma": "^6.15.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "resend": "^6.1.0",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/nodemailer": "^7.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4",

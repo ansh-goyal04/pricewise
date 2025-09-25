@@ -5,6 +5,7 @@ import { scrapeProduct } from "../scraper"
 import { getAveragePrice, getHighestPrice, getLowestPrice } from "../utils";
 import { prisma } from "../../lib/prisma";
 import { cache } from "react";
+import { generateEmailBody,sendEmail } from "../nodemailer";
 
 // --- SCRAPE & STORE ---
 export async function scrapeAndStoreProduct(url: string) {
@@ -102,7 +103,7 @@ export const getAllProducts = cache(async () => {
   }
 });
 
-export async function addUserEmailToProdct(productId:string,email:string){
+export async function addUserEmailToProduct(productId:string,email:string){
   try {
     const existingProduct=await prisma.product.findUnique({
       where:{id:productId}
@@ -126,6 +127,9 @@ export async function addUserEmailToProdct(productId:string,email:string){
         }
       }
     })
+
+    const emailContent=await generateEmailBody(existingProduct,"WELCOME");
+    await sendEmail(emailContent,email);
   } catch (error) {
     
   }

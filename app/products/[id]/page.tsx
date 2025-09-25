@@ -12,30 +12,7 @@ import { useParams } from 'next/navigation';
 import { getProductById } from "@/local-lib/actions";
 import Modal from "@/local-comp/Modal";
 
-interface ProductCard {
-  id: string;
-  url: string;
-  currency: string;
-  image: string;
-  title: string;
-  currentPrice: number;
-  originalPrice: number;
-  discountRate: number | null;
-  description?: string | null;
-  rating?: number | null;
-  reviewCount?: number | null;
-  averagePrice?: number | null;
-  category?: string | null;
-  isOutOfStock?: boolean;
-  priceHistory: Array<{
-    id: string;
-    price: number;
-    date: Date;
-    productId: string;
-  }>;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import {ProductCard} from "@/local-lib/types"
 
 export default function ProductDisplay() {
   const params = useParams();
@@ -199,8 +176,7 @@ export default function ProductDisplay() {
           {/* Action Buttons */}
           {/* <div className="space-y-4"> */}
               <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              {/* <Button size="lg" className="flex-1 text-lg font-semibold"> */}
-                <Modal/>
+                <Modal productId={params.id?.toString() || ''} />
               {/* </Button>  */}
               {/* <Button size="lg" variant="outline" className="flex-1 bg-transparent">
                 Buy Now
