@@ -4,6 +4,10 @@ import {getAveragePrice, getEmailNotifType, getHighestPrice, getLowestPrice} fro
 import {EmailProductInfo, ProductCard} from "@/local-lib/types";
 import { generateEmailBody,sendEmail } from "@/local-lib/nodemailer";
 import { NextResponse } from "next/server";
+
+export const maxDuration = 300; // This function can run for a maximum of 300 seconds
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 export async function GET(){
     try{
         const products=await prisma.product.findMany({
