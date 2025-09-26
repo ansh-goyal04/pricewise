@@ -83,7 +83,10 @@ export const getProductById = cache(async (productId: string) => {
   try {
     const product = await prisma.product.findUnique({
       where: { id: productId },
-      include: { priceHistory: true },
+      include: { priceHistory: true ,
+        Users:true
+      },
+      
     });
     return product ?? null;
   } catch (err: any) {
@@ -129,7 +132,7 @@ export async function addUserEmailToProduct(productId:string,email:string){
     })
 
     const emailContent=await generateEmailBody(existingProduct,"WELCOME");
-    await sendEmail(emailContent,email);
+    await sendEmail(emailContent,[email]);
   } catch (error) {
     
   }
